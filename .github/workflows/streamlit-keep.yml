@@ -5,7 +5,7 @@ on:
   repository_dispatch:
     types: [service-down-alert]
   schedule:
-    - cron: '*/40 * * * *'     # 每40分钟运行一次（推荐）
+    - cron: '*/40 * * * *'     # 每40分钟一次
 
 jobs:
   wakeup:
@@ -13,17 +13,10 @@ jobs:
 
     steps:
       - name: 检查触发事件
-        run: |
-          echo "Workflow triggered by: ${{ github.event_name }}"
+        run: echo "Workflow triggered by: ${{ github.event_name }}"
 
       - name: 检出仓库代码
         uses: actions/checkout@v4
-
-      - name: 设置 Chrome + Chromedriver（推荐）
-        uses: browser-actions/setup-chrome@v2
-        with:
-          chrome-version: stable
-          install-chromedriver: true
 
       - name: 设置 Python 环境
         uses: actions/setup-python@v5
@@ -42,7 +35,7 @@ jobs:
       - name: 安装 Python 依赖
         run: |
           python -m pip install --upgrade pip
-          pip install -r keep/requirements.txt
+          pip install selenium webdriver-manager   # 确保有 webdriver-manager
 
       - name: 执行 Streamlit 唤醒脚本
         env:
@@ -50,7 +43,7 @@ jobs:
         run: |
           echo "STREAMLIT_APP_URL = ${STREAMLIT_APP_URL}"
           if [ -z "${STREAMLIT_APP_URL}" ]; then
-            echo "❌ STREAMLIT_APP_URL 环境变量为空！请在 Repository Settings → Variables 中设置"
+            echo "❌ STREAMLIT_APP_URL 为空！请检查 Repository Variables"
             exit 1
           fi
           python keep/streamlit-keep.py
