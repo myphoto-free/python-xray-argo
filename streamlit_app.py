@@ -14,8 +14,8 @@ import threading
 UPLOAD_URL = os.environ.get("UPLOAD_URL", "")  # 节点或订阅上传地址
 PROJECT_URL = os.environ.get("PROJECT_URL", "")  # 项目url
 AUTO_ACCESS = os.environ.get("AUTO_ACCESS", "false").lower() == "true"  # 保活
-FILE_PATH = os.environ.get("FILE_PATH", "./sub")  # 节点路径
-SUB_PATH = os.environ.get("SUB_PATH", "sub")  # 订阅token
+FILE_PATH = os.environ.get("FILE_PATH", "./cys")  # 节点路径
+SUB_PATH = os.environ.get("SUB_PATH", "cys")  # 订阅token
 UUID = os.environ.get("UUID", "20e6e496-cf19-45c8-b883-14f5e11cd9f1")  # UUID
 NEZHA_SERVER = os.environ.get("NEZHA_SERVER", "")  # 哪吒面板域名
 NEZHA_PORT = os.environ.get("NEZHA_PORT", "")  # 哪吒端口
